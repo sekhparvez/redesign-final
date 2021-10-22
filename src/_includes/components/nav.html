@@ -1,7 +1,8 @@
 <nav aria-label="Primary">
+  <a href="#" id="pull"></a>
   <ul>
     {% for page in collections.page %}
-    <li>
+    <li class="{% if nav.url == page.url %} active{% endif %}">
       <a href="{{ page.url }}"> {{ page.data.navTitle }} </a>
     </li>
     {% endfor %}
