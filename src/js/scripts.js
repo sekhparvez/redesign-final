@@ -4,7 +4,7 @@ const API = `https://api.nytimes.com/svc/topstories/v2/nyregion.json?api-key=${k
 const storagePrefix = "nyt-autosave";
 
 import {setWithExpiry, getWithExpiry} from './modules/localeStorageHelpers.js'
-
+import {runCarousel} from './modules/carousel.js';
 function getStories() {
   const value = getWithExpiry(storagePrefix);
   if (!value) {
@@ -16,6 +16,14 @@ function getStories() {
     document.querySelector(".stories").innerHTML = value;
   }
 }
+
+// function runCarousel(event) {
+//   const imageHref = event.target.parentNode.getAttribute("href");
+//   const titleText = event.target.title;
+//   document.querySelector('figure img').setAttribute('src', imageHref);
+//   document.querySelector('figcaption').innerHTML = titleText;
+// }
+
 
 function showData(stories) {
   const looped = stories
@@ -60,21 +68,36 @@ document.addEventListener("click", clickHandlers);
 
 // //video
 
+// function clickHandlers(event) {
+//   if (event.target.matches("#pull")) {
+//     document.querySelector("body").classList.toggle("show-nav");
+//     event.preventDefault();
+//   }
+//   if (event.target.matches("#pull")) {
+//       showMenu();
+//       event.preventDefault();
+//     }
+//     if (event.target.matches(".content-video a")) {
+//       videoSwitch(event);
+//       event.preventDefault();
+//     }
+  
+// }
 function clickHandlers(event) {
   if (event.target.matches("#pull")) {
-    document.querySelector("body").classList.toggle("show-nav");
+    showMenu(event);
     event.preventDefault();
   }
-  if (event.target.matches("#pull")) {
-      showMenu();
-      event.preventDefault();
-    }
-    if (event.target.matches(".content-video a")) {
-      videoSwitch(event);
-      event.preventDefault();
-    }
-  
+  if (event.target.matches(".content-video a")) {
+    videoSwitch(event);
+    event.preventDefault();
+  }
+  if (event.target.matches(".image-tn img")) {
+    runCarousel(event);
+    event.preventDefault();
+  }
 }
+
 
 function showMenu() {
   document.querySelector("body").classList.toggle("show-nav");
